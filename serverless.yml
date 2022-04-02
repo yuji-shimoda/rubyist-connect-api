@@ -11,6 +11,7 @@ functions:
     handler: main.app
     events:
       - http: ANY /
+      - http: ANY /{path+}
 custom:
   pythonRequirements:
     usePipenv: true
