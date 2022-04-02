@@ -1,0 +1,22 @@
+service: rubyist-connect-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: ap-northeast-1
+functions:
+  service:
+    handler: main.app
+    events:
+      - http: ANY /
+custom:
+  pythonRequirements:
+    usePipenv: true
+plugins:
+  - serverless-python-requirements
+package:
+  patterns:
+    - '!package.json'
+    - '!package-lock.json'
