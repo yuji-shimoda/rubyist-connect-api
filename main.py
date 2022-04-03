@@ -8,10 +8,6 @@ from pydantic import BaseSettings, BaseModel
 logger = getLogger(__name__)
 
 
-class Item(BaseModel):
-    statusCode: int
-
-
 class Settings(BaseSettings):
     base_path: str = "/dev"
 
