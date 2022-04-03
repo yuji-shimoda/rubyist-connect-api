@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from routers import users
+from routers import users, events
 from mangum import Mangum
 from logging import getLogger
 from pydantic import BaseSettings, BaseModel
@@ -30,6 +30,7 @@ def create_app():
 
 app = create_app()
 app.include_router(users.router)
+app.include_router(events.router)
 
 
 @app.get("/")
