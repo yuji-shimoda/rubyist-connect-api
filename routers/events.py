@@ -48,3 +48,12 @@ async def delete_event():
         'name': 'delete_event'
     })
     return JSONResponse(content=data)
+
+
+@router.get("/events/{event_id}/users/{nickname}", tags=["events"])
+async def get_event_user():
+    data = jsonable_encoder({
+        'statusCode': 200,
+        'name': 'get_event_user'
+    })
+    return JSONResponse(content=data)
