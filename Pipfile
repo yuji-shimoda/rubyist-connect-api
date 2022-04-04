@@ -7,6 +7,7 @@ name = "pypi"
 fastapi = "*"
 mangum = "*"
 pydantic = {extras = ["email"], version = "*"}
+sqlalchemy = "*"
 
 [dev-packages]
 
