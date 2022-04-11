@@ -1,15 +1,18 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from routers import users, events
+from users.router import router as userrouter
+from starlette.requests import Request
 from mangum import Mangum
-from logging import getLogger
+from database import database
 from pydantic import BaseSettings, BaseModel
+from logging import getLogger
+
 logger = getLogger(__name__)
 
 
 class Settings(BaseSettings):
-    base_path: str = "/dev"
+    base_path: str = ""
 
 
 settings = Settings()
@@ -25,16 +28,23 @@ def create_app():
 
 
 app = create_app()
-app.include_router(users.router)
-app.include_router(events.router)
+app.include_router(userrouter)
+#app.include_router(events.router, tags=['events'])
+
+@app.on_event("startup")
+async def startup():
+    await database.connect()
 
 
-@app.get("/")
-async def root():
-    data = jsonable_encoder({
-        'statusCode': 200,
-        'name': 'root'
-    })
-    return JSONResponse(content=data)
+@app.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()
+
+
+@app.middleware("http")
+async def db_session_middleware(request: Request, call_next):
+    request.state.connection = database
+    response = await call_next(request)
+    return response
 
 handler = Mangum(app)

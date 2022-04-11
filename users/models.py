@@ -1,13 +1,15 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Text, DateTime
+from sqlalchemy.orm import declarative_base
+from database import metadata, engine
 
-from .database import Base
+Base = declarative_base(metadata=metadata)
+metadata.create_all(engine)
 
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     image = Column(String)
     email = Column(String)

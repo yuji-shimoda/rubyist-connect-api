@@ -8,6 +8,9 @@ fastapi = "*"
 mangum = "*"
 pydantic = {extras = ["email"], version = "*"}
 sqlalchemy = "*"
+psycopg2 = "*"
+databases = "*"
+asyncpg = "*"
 
 [dev-packages]
 
