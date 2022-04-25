@@ -2,10 +2,13 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/events",
+    tags=["events"]
+)
 
 
-@router.get("/events", tags=["events"])
+@router.get("/")
 async def list_events():
     data = jsonable_encoder({
         'statusCode': 200,
@@ -14,7 +17,7 @@ async def list_events():
     return JSONResponse(content=data)
 
 
-@router.get("/events/{event_id}", tags=["events"])
+@router.get("/{event_id}")
 async def show_event():
     data = jsonable_encoder({
         'statusCode': 200,
@@ -23,7 +26,7 @@ async def show_event():
     return JSONResponse(content=data)
 
 
-@router.post("/events", tags=["events"])
+@router.post("")
 async def create_event():
     data = jsonable_encoder({
         'statusCode': 200,
@@ -32,7 +35,7 @@ async def create_event():
     return JSONResponse(content=data)
 
 
-@router.put("/events/{event_id}", tags=["events"])
+@router.put("/{event_id}")
 async def update_event():
     data = jsonable_encoder({
         'statusCode': 200,
@@ -41,7 +44,7 @@ async def update_event():
     return JSONResponse(content=data)
 
 
-@router.delete("/events/{event_id}", tags=["events"])
+@router.delete("/{event_id}")
 async def delete_event():
     data = jsonable_encoder({
         'statusCode': 200,
@@ -50,7 +53,7 @@ async def delete_event():
     return JSONResponse(content=data)
 
 
-@router.get("/events/{event_id}/users/{nickname}", tags=["events"])
+@router.get("/{event_id}/users/{nickname}")
 async def get_event_user():
     data = jsonable_encoder({
         'statusCode': 200,
