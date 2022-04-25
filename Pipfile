@@ -11,6 +11,8 @@ sqlalchemy = "*"
 psycopg2 = "*"
 databases = "*"
 asyncpg = "*"
+fastapi-users = {extras = ["oauth", "sqlalchemy2"], version = "*"}
+firebase-admin = "*"
 
 [dev-packages]
 
